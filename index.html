@@ -50,6 +50,7 @@
       })
       
       const texts = document.querySelectorAll('.text');
+      let isAudioPlaying = false;
 
       function shuffleText(text) {
       const theLetters = "abcdefghijklmnopqrstuvwxyz";
@@ -72,7 +73,11 @@
 
       function nextFrame(pos) {
         const audio = document.querySelector('.shuffleAudio');
+        if (!isAudioPlaying) {
+        isAudioPlaying = true;
         audio.play();
+    }
+
 
         for (let i = 0; i < originalText.length - stri; i++) {
           const num = Math.floor(theLetters.length * Math.random());
@@ -92,6 +97,7 @@
         // Restore original text at the end of the animation
         if (pos === 1) {
           text.innerHTML = originalText;
+          isAudioPlaying = false;
         }
       }
     }
