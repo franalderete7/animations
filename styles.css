@@ -1,0 +1,154 @@
+@font-face {
+  font-family: "BasementGrotesque";
+  src: url("BasementGrotesque-Black_v1.202.otf");
+}
+
+body {
+  font-family: "BasementGrotesque", sans-serif;
+}
+
+
+/* Set up basic styles for the menu button */
+.menu-btn {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 10;
+  background: none;
+  border: none;
+  cursor: pointer;
+  height: 25px;
+}
+
+/* Set up the hamburger icon */
+.menu-icon,
+.menu-icon::before,
+.menu-icon::after {
+  content: "";
+  display: block;
+  height: 3px;
+  width: 25px;
+  background-color: #000;
+  transition: all 0.2s ease-in-out;
+}
+
+/* Set up the initial state of the hamburger icon */
+.menu-icon::before {
+  transform: translateY(-8px);
+}
+
+.menu-icon::after {
+  transform: translateY(5px);
+}
+
+/* Set up the styles for the menu */
+.menu {
+  position: fixed;
+  border-style: none;
+  border-radius: 8px;
+  height: 90vh;
+  margin-left: 15px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  top: 0;
+  left: -50%;
+  width: 40%;
+  height: 95%;
+  background-color: #030202;
+  z-index: 9;
+  transition: all 0.5s ease-in-out;
+}
+
+/* Set up the styles for the menu when it is open */
+.menu.is-active {
+  left: 0;
+}
+
+/* Set up the styles for the menu list */
+.menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+/* Set up the styles for the menu list items */
+.menu li {
+  margin: 20px;
+  padding: 15px;
+}
+
+.menu li a {
+  font-size: 24px;
+  color: #fafafa;
+  text-decoration: none;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.menu li a::before {
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  animation: typing 0.3s steps(1) forwards;
+}
+
+@keyframes typing {
+  from {
+    opacity: 0;
+    width: 0;
+  }
+  to {
+    opacity: 1;
+    width: 100%;
+  }
+}
+
+.text-effect:hover::before {
+  content: "";
+  animation-name: typing-hover;
+  animation-duration: 0.3s;
+  animation-timing-function: steps(1);
+  animation-fill-mode: forwards;
+}
+
+@keyframes typing-hover {
+  from {
+    content: attr(data-text);
+    width: 0;
+  }
+  to {
+    content: "";
+    width: 100%;
+  }
+}
+
+
+/* Set up the styles for the menu when the button is hovered */
+.menu-btn:hover {
+  opacity: 0.6;
+}
+
+/* Set up the styles for the hamburger icon when the menu is open */
+.menu.is-active .menu-icon {
+  transform: rotate(45deg);
+}
+
+.menu.is-active .menu-icon::before {
+  transform: rotate(-45deg) translate(-5px, 5px);
+}
+
+.menu.is-active .menu-icon::after {
+  transform: rotate(45deg) translate(-5px, -5px);
+}
+
+
