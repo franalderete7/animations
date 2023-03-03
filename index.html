@@ -11,11 +11,17 @@
       </button>
     </header>
 
+    <audio class="shuffleAudio">
+      <source src="trimmed-shuffle.wav" type="audio/mpeg">
+    </audio>
+
     <nav class="menu">
       <ul>
-        <li><a href="#" class="text" >Home</a></li>
+        <li><a href="#" class="text" >Story</a></li>
+        <li><a href="#" class="text" >Media</a></li>
+        <li><a href="#" class="text" >Gallery</a></li>
+        <li><a href="#" class="text" >Journal</a></li>
         <li><a href="#" class="text" >About</a></li>
-        <li><a href="#" class="text" >Contact</a></li>
       </ul>
     </nav>
 
@@ -45,30 +51,31 @@
       
       const texts = document.querySelectorAll('.text');
 
-    function shuffleText(text) {
-      const theLetters = "abcdefghijklmnopqrstuvwxyz"; //You can customize what letters it will cycle through
-      const ctnt = text.innerHTML; // Your text goes here
-      const speed = 7 // ms per frame
-      const increment = 8; // frames per step. Must be >2
+      function shuffleText(text) {
+      const theLetters = "abcdefghijklmnopqrstuvwxyz";
+      const originalText = text.innerHTML;
+      const speed = 7;
+      const increment = 8;
       let si = 0;
       let stri = 0;
       let block = "";
       let fixed = "";
-          
-      //Call self x times, whole function wrapped in setTimeout
+      
+      // Call self x times, whole function wrapped in setTimeout
       (function rustle (i) {
         setTimeout(() => {
           if (--i){rustle(i);}
           nextFrame(i);
           si = si + 1;
         }, speed);
-      })(ctnt.length * increment + 1); 
+      })(originalText.length * increment + 1);
 
       function nextFrame(pos) {
-        for (let i = 0; i < ctnt.length - stri; i++) {
-          //Random number
+        const audio = document.querySelector('.shuffleAudio');
+        audio.play();
+
+        for (let i = 0; i < originalText.length - stri; i++) {
           const num = Math.floor(theLetters.length * Math.random());
-          //Get random letter
           const letter = theLetters.charAt(num);
           block = block + letter;
         }
@@ -76,18 +83,23 @@
           stri++;
         }
         if (si == increment) {
-          // Add a letter; 
-          // every speed*10 ms
-          fixed = fixed +  ctnt.charAt(stri - 1);
+          fixed = fixed +  originalText.charAt(stri - 1);
           si = 0;
         }
         text.innerHTML = fixed + block;
         block = "";
+        
+        // Restore original text at the end of the animation
+        if (pos === 1) {
+          text.innerHTML = originalText;
+        }
       }
     }
 
+
+
     texts.forEach((text) => {
-      text.addEventListener("mouseover", () => {
+      text.addEventListener("mouseenter", () => {
         shuffleText(text);
       });
     });
