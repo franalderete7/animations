@@ -5,10 +5,12 @@
 
 body {
   font-family: "BasementGrotesque", sans-serif;
+  margin: 0;
+  overflow: hidden;
 }
 
 
-/* Set up basic styles for the menu button */
+/* Set up basic styles for the menu .close-btn */
 .menu-btn {
   position: fixed;
   top: 20px;
@@ -19,6 +21,37 @@ body {
   cursor: pointer;
   height: 25px;
 }
+
+.close-btn {
+  position: absolute;
+  top: 5px;
+  right: 30px;
+  margin: 1rem;
+  background-color: transparent;
+  color: white;
+  border: none;
+  cursor: pointer;
+  display: block;
+  height: 30px;
+  width: 30px;
+}
+
+.close-btn:hover {
+  animation: twinkle 0.2s ease-in-out 2;
+}
+
+@keyframes twinkle {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 
 /* Set up the hamburger icon */
 .menu-icon,
@@ -44,6 +77,9 @@ body {
 /* Set up the styles for the menu */
 .menu {
   position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-style: none;
   border-radius: 8px;
   height: 90vh;
@@ -55,100 +91,37 @@ body {
   width: 40%;
   height: 95%;
   background-color: #030202;
+  opacity: 0.89;
   z-index: 9;
   transition: all 0.5s ease-in-out;
 }
 
-/* Set up the styles for the menu when it is open */
-.menu.is-active {
-  left: 0;
-}
 
-/* Set up the styles for the menu list */
-.menu ul {
+.div1 {  
   list-style: none;
-  padding: 0;
-  margin: 0;
   text-align: center;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  height: 100%;
-}
-
-/* Set up the styles for the menu list items */
-.menu li {
-  margin: 20px;
-  padding: 15px;
-}
-
-.menu li a {
-  font-size: 24px;
+  justify-content: center;
+} 
+.div1 li a {
+  font-size: 35px;
   color: #fafafa;
   text-decoration: none;
   letter-spacing: 2px;
   text-transform: uppercase;
 }
 
-.menu li a::before {
-  content: attr(data-text);
-  position: absolute;
+
+/* Set up the styles for the menu when it is open */
+.menu.is-active {
   left: 0;
-  top: 0;
-  opacity: 0;
-  white-space: nowrap;
-  overflow: hidden;
-  animation: typing 0.3s steps(1) forwards;
-}
-
-@keyframes typing {
-  from {
-    opacity: 0;
-    width: 0;
-  }
-  to {
-    opacity: 1;
-    width: 100%;
-  }
-}
-
-.text-effect:hover::before {
-  content: "";
-  animation-name: typing-hover;
-  animation-duration: 0.3s;
-  animation-timing-function: steps(1);
-  animation-fill-mode: forwards;
-}
-
-@keyframes typing-hover {
-  from {
-    content: attr(data-text);
-    width: 0;
-  }
-  to {
-    content: "";
-    width: 100%;
-  }
 }
 
 
-/* Set up the styles for the menu when the button is hovered */
-.menu-btn:hover {
-  opacity: 0.6;
-}
 
-/* Set up the styles for the hamburger icon when the menu is open */
-.menu.is-active .menu-icon {
-  transform: rotate(45deg);
-}
 
-.menu.is-active .menu-icon::before {
-  transform: rotate(-45deg) translate(-5px, 5px);
-}
 
-.menu.is-active .menu-icon::after {
-  transform: rotate(45deg) translate(-5px, -5px);
-}
 
 

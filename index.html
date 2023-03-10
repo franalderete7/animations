@@ -16,23 +16,32 @@
     </audio>
 
     <nav class="menu">
-      <ul>
-        <li><a href="#" class="text" >Story</a></li>
-        <li><a href="#" class="text" >Media</a></li>
-        <li><a href="#" class="text" >Gallery</a></li>
-        <li><a href="#" class="text" >Journal</a></li>
-        <li><a href="#" class="text" >About</a></li>
-      </ul>
+          <button class="close-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="50" height="50">
+              <path fill="currentColor" d="M14.95,5.05a1,1,0,0,0-1.41,0L10,8.59,6.46,5.05A1,1,0,0,0,5.05,6.46L8.59,10,5.05,13.54a1,1,0,1,0,1.41,1.41L10,11.41l3.54,3.54a1,1,0,0,0,1.41-1.41L11.41,10Z"/>
+            </svg>
+          </button> <!-- new button for closing the menu -->
+          <ul class="div1">
+            <li><a href="#" id="text1" >Story</a></li>
+            <li><a href="#" id="text2" >Media</a></li>
+            <li><a href="#" id="text3" >Gallery</a></li>
+            <li><a href="#" id="text4">Journal</a></li>
+            <li><a href="#" id="text5" >About</a></li>
+          </ul> 
     </nav>
 
+    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
     <script>
+      
+
       const body = document.body.style.fontFamily = "BasementGrotesque, sans-serif";
       // JavaScript code goes here
       const menuBtn = document.querySelector('.menu-btn');
+      const closeBtn = document.querySelector('.close-btn'); // new button
       const menu = document.querySelector('.menu');
 
       let menuOpen = false;
-      menuBtn.addEventListener('mouseover', () => {
+      menuBtn.addEventListener('click', () => {
         if (!menuOpen) {
           menuBtn.classList.add('is-active');
           menu.classList.add('is-active');
@@ -44,24 +53,28 @@
         }
       });
 
-      menu.addEventListener('mouseleave', () => {
-        menu.classList.remove('is-active')
-        menuOpen = false
-      })
+      closeBtn.addEventListener('click', () => { // event listener for the new button
+        menuBtn.classList.remove('is-active');
+        menu.classList.remove('is-active');
+        menuOpen = false;
+      });
       
-      const texts = document.querySelectorAll('.text');
+      const texts = document.querySelectorAll('[id^="text"]');
       let isAudioPlaying = false;
 
-      function shuffleText(text) {
+      function shuffleText(text, textId) {
       const theLetters = "abcdefghijklmnopqrstuvwxyz";
-      const originalText = text.innerHTML;
-      const speed = 7;
+      const originalText = text.dataset.originalText || text.innerHTML;
+      text.dataset.originalText = originalText;
+      const speed = 10;
       const increment = 8;
       let si = 0;
       let stri = 0;
       let block = "";
       let fixed = "";
-      
+      let frameCount = 0;
+      const expectedFrames = originalText.length * increment + 1;
+
       // Call self x times, whole function wrapped in setTimeout
       (function rustle (i) {
         setTimeout(() => {
@@ -69,33 +82,39 @@
           nextFrame(i);
           si = si + 1;
         }, speed);
-      })(originalText.length * increment + 1);
+      })(expectedFrames);
 
       function nextFrame(pos) {
         const audio = document.querySelector('.shuffleAudio');
         if (!isAudioPlaying) {
-        isAudioPlaying = true;
-        audio.play();
-    }
-
+          isAudioPlaying = true;
+          audio.play();
+        }
 
         for (let i = 0; i < originalText.length - stri; i++) {
           const num = Math.floor(theLetters.length * Math.random());
           const letter = theLetters.charAt(num);
           block = block + letter;
         }
+
+        fixed = "";
+        for (let i = 0; i < stri; i++) {
+          fixed += originalText.charAt(i);
+        }
+
         if (si == (increment - 1)){
           stri++;
         }
+
         if (si == increment) {
-          fixed = fixed +  originalText.charAt(stri - 1);
           si = 0;
         }
         text.innerHTML = fixed + block;
         block = "";
-        
+
         // Restore original text at the end of the animation
-        if (pos === 1) {
+        frameCount++;
+        if (frameCount === expectedFrames) {
           text.innerHTML = originalText;
           isAudioPlaying = false;
         }
@@ -103,13 +122,12 @@
     }
 
 
-
     texts.forEach((text) => {
+      const textId = text.getAttribute('id');
       text.addEventListener("mouseenter", () => {
-        shuffleText(text);
+        shuffleText(text, textId);
       });
     });
-
     </script>
   </body>
 </html>
