@@ -15,6 +15,15 @@
       <source src="trimmed-shuffle.wav" type="audio/mpeg">
     </audio>
 
+    <audio class="sweepAudio">
+      <source src="sweep.wav" type="audio/mpeg" >
+    </audio>
+
+    <audio class="closeAudio">
+      <source src="close-click.wav" type="audio/mpeg" >
+    </audio>
+
+
     <nav class="menu">
           <button class="close-btn">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="50" height="50">
@@ -39,14 +48,18 @@
       const menuBtn = document.querySelector('.menu-btn');
       const closeBtn = document.querySelector('.close-btn'); // new button
       const menu = document.querySelector('.menu');
+      const sweepAudio = document.querySelector('.sweepAudio')
+      const closeAudio = document.querySelector('.closeAudio')
 
       let menuOpen = false;
       menuBtn.addEventListener('click', () => {
         if (!menuOpen) {
+          sweepAudio.play()
           menuBtn.classList.add('is-active');
           menu.classList.add('is-active');
           menuOpen = true;
         } else {
+          sweepAudio.play()
           menuBtn.classList.remove('is-active');
           menu.classList.remove('is-active');
           menuOpen = false;
@@ -54,9 +67,14 @@
       });
 
       closeBtn.addEventListener('click', () => { // event listener for the new button
+        sweepAudio.play()
         menuBtn.classList.remove('is-active');
         menu.classList.remove('is-active');
         menuOpen = false;
+      });
+
+      closeBtn.addEventListener("mouseenter", function() {
+        closeAudio.play();
       });
       
       const texts = document.querySelectorAll('[id^="text"]');
