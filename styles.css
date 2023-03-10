@@ -5,10 +5,24 @@
 
 body {
   font-family: "BasementGrotesque", sans-serif;
+  background-color: #000;
+  color: #fff;
   margin: 0;
+  padding: 0;
   overflow: hidden;
 }
 
+
+main {
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+  position: relative;
+}
+
+#eyes, #eyes img {
+  position: absolute;
+}
 
 /* Set up basic styles for the menu .close-btn */
 .menu-btn {
@@ -20,6 +34,7 @@ body {
   border: none;
   cursor: pointer;
   height: 25px;
+  color: white;
 }
 
 .close-btn {
@@ -53,27 +68,6 @@ body {
 }
 
 
-/* Set up the hamburger icon */
-.menu-icon,
-.menu-icon::before,
-.menu-icon::after {
-  content: "";
-  display: block;
-  height: 3px;
-  width: 25px;
-  background-color: #000;
-  transition: all 0.2s ease-in-out;
-}
-
-/* Set up the initial state of the hamburger icon */
-.menu-icon::before {
-  transform: translateY(-8px);
-}
-
-.menu-icon::after {
-  transform: translateY(5px);
-}
-
 /* Set up the styles for the menu */
 .menu {
   position: fixed;
@@ -93,7 +87,7 @@ body {
   background-color: #030202;
   opacity: 0.89;
   z-index: 9;
-  transition: all 0.5s ease-in-out;
+  transition: all 0.3s ease-in-out;
 }
 
 

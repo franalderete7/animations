@@ -7,7 +7,9 @@
   <body>
     <header>
       <button class="menu-btn">
-        <span class="menu-icon"></span>
+        <svg viewBox="0 0 100 80" width="40" height="30" style="fill: white">
+          <path d="M5 10h90v10H5zM5 35h90v10H5zM5 60h90v10H5z"/>
+        </svg>        
       </button>
     </header>
 
@@ -22,7 +24,6 @@
     <audio class="closeAudio">
       <source src="close-click.wav" type="audio/mpeg" >
     </audio>
-
 
     <nav class="menu">
           <button class="close-btn">
@@ -39,10 +40,19 @@
           </ul> 
     </nav>
 
+    <main>
+      <img id="anchor" src="rick-n-morty.png">
+      <div id="eyes">
+        <img class="eye" src="eye.png" style="top: 98px; right: 15px;"> 
+        <img class="eye" src="eye.png" style="top: 120px; right: 130px;">
+        <img class="eye" src="eye.png" style="top: -146px; right: -228px;">
+        <img class="eye" src="eye.png" style="top: -141px; right: -145px;">
+      </div>
+    </main>
+
     <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
     <script>
-      
-
+   
       const body = document.body.style.fontFamily = "BasementGrotesque, sans-serif";
       // JavaScript code goes here
       const menuBtn = document.querySelector('.menu-btn');
@@ -139,13 +149,42 @@
       }
     }
 
-
     texts.forEach((text) => {
       const textId = text.getAttribute('id');
       text.addEventListener("mouseenter", () => {
         shuffleText(text, textId);
       });
     });
+
+    document.addEventListener('mousemove', (e) => {
+      const mouseX = e.clientX
+      const mouseY = e.clientY
+
+      const anchor = document.getElementById('anchor')
+      const rekt = anchor.getBoundingClientRect()
+      const anchorX = rekt.left + rekt.width / 2
+      const anchorY = rekt.top + rekt.height / 2
+
+      const angleDeg = angle(mouseX, mouseY, anchorX, anchorY)
+
+      const eyes = document.querySelectorAll('.eye')
+      eyes.forEach(eye => {
+        eye.style.transform = `rotate(${90 + angleDeg}deg)`
+        anchor.style.filter = `hue-rotate(${angleDeg}deg)`
+      })
+
+    })
+
+  function angle(cx, cy, ex, ey) {
+    const dy = ey - cy 
+    const dx = ex - cx
+
+    const rad = Math.atan2(dy, dx)
+    const deg = rad * 180 / Math.PI
+
+    return deg
+  }
+
     </script>
   </body>
 </html>
