@@ -10,7 +10,7 @@
         <svg viewBox="0 0 100 80" width="40" height="30" style="fill: white">
           <path d="M5 10h90v10H5zM5 35h90v10H5zM5 60h90v10H5z"/>
         </svg>        
-      </button>
+      </button>    
     </header>
 
     <audio class="shuffleAudio">
@@ -23,6 +23,10 @@
 
     <audio class="closeAudio">
       <source src="close-click.wav" type="audio/mpeg" >
+    </audio>
+
+    <audio class="rickNMortyAudio" autoplay muted>
+      <source src="rick-morty.wav" type="audio/mpeg" >
     </audio>
 
     <nav class="menu">
@@ -52,6 +56,12 @@
 
     <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
     <script>
+
+      var audio = document.querySelector('.rickNMortyAudio')
+      setTimeout(function() {
+        audio.muted = false;
+        audio.play();
+      }, 3000);
    
       const body = document.body.style.fontFamily = "BasementGrotesque, sans-serif";
       // JavaScript code goes here
@@ -60,6 +70,8 @@
       const menu = document.querySelector('.menu');
       const sweepAudio = document.querySelector('.sweepAudio')
       const closeAudio = document.querySelector('.closeAudio')
+
+
 
       let menuOpen = false;
       menuBtn.addEventListener('click', () => {
