@@ -54,7 +54,61 @@
       </div>
     </main>
 
-    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+      const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+const renderer = new THREE.WebGLRenderer();
+renderer.setSize(window.innerWidth, window.innerHeight);
+document.body.appendChild(renderer.domElement);
+
+// Load gold texture
+const textureLoader = new THREE.TextureLoader();
+const goldTexture = textureLoader.load('gold.jpg');
+
+// Create gold material with the loaded texture
+const material = new THREE.MeshPhongMaterial({ map: goldTexture });
+
+// Create a cube with the gold material
+const geometry = new THREE.BoxGeometry();
+const cube = new THREE.Mesh(geometry, material);
+scene.add(cube);
+
+// Create a plane for the shadow to be cast onto
+const shadowPlaneGeometry = new THREE.PlaneGeometry(10, 10, 1, 1);
+const shadowPlaneMaterial = new THREE.ShadowMaterial();
+const shadowPlane = new THREE.Mesh(shadowPlaneGeometry, shadowPlaneMaterial);
+shadowPlane.receiveShadow = true;
+scene.add(shadowPlane);
+
+// Position the cube and the shadow plane
+cube.position.set(0, 0, 0);
+shadowPlane.position.set(0, -2, 0);
+
+// Set up lights
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
+directionalLight.position.set(10, 10, 10);
+directionalLight.castShadow = true;
+directionalLight.shadow.camera.near = 1;
+directionalLight.shadow.camera.far = 50;
+directionalLight.shadow.mapSize.width = 1024;
+directionalLight.shadow.mapSize.height = 1024;
+scene.add(ambientLight);
+scene.add(directionalLight);
+
+camera.position.z = 2;
+
+function animate() {
+  requestAnimationFrame(animate);
+  cube.rotation.x += 0.01;
+  cube.rotation.y += 0.01;
+  renderer.render(scene, camera);
+}
+animate();
+
+    </script> -->
+    
     <script>
 
       var audio = document.querySelector('.rickNMortyAudio')
